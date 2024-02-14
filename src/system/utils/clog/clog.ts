@@ -6,7 +6,7 @@ import TextColor from "./colors/text-color";
  */
 class clog
 {
-	static #log(str: string, textColor: string , bgColor?: string) {
+	static #log(str: any, textColor: string , bgColor?: string) {
 		console.log(textColor+bgColor+str+TextColor.WHITE+BgColor.BLACK);
 	}
 	static log(str: string) {
@@ -18,7 +18,7 @@ class clog
 	static green(str: string, bgColor?: BgColor | null) {		
 		clog.#log(str, TextColor.GREEN, bgColor || '');
 	}
-	static yellow(str: string, bgColor?: BgColor | null) {		
+	static yellow(str: any, bgColor?: BgColor | null) {		
 		clog.#log(str, TextColor.YELLOW, bgColor || '');
 	}
 	static blue(str: string, bgColor?: BgColor | null) {		
