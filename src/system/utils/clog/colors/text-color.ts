@@ -1,4 +1,4 @@
-enum ForeColor {
+enum TextColor {
 	BLACK = '\x1b[30m',
 	RED = '\x1b[31m',
 	GREEN = '\x1b[32m',
@@ -8,4 +8,4 @@ enum ForeColor {
 	CYAN = '\x1b[36m',	
 	WHITE = '\x1b[37m',
 }
-export default ForeColor;
+export default TextColor;

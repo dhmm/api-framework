@@ -1,13 +1,12 @@
 import SystemConstants from "../constants/system";
 import Server from "../server/server";
-import ConsoleLogger from "../utils/console-logger/consoleLogger";
+import clog from "../utils/clog/clog";
 
 class Framework
 {
-	consoleLogger = new ConsoleLogger()
 	server = new Server();
 	start() {		
-		this.consoleLogger.LogBlue('Starting framework version : '+ SystemConstants.SystemVersion);		
+		clog.blue('Starting framework version : '+ SystemConstants.SystemVersion);		
 		this.server.start();
 	}
 }

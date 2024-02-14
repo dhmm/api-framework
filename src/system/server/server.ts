@@ -1,4 +1,4 @@
-import ConsoleLogger from "../utils/console-logger/consoleLogger";
+import clog from "../utils/clog/clog";
 
 const express = require('express');
 const app = express();
@@ -6,10 +6,9 @@ const app = express();
 
 class Server
 {
-	consoleLogger = new ConsoleLogger()
 	port = 3000
 	start() {
-		this.consoleLogger.LogMagenta('Server starting at port '+this.port);
+		clog.magenta('Server starting at port '+this.port);
 		app.listen(this.port)
 	}
 }
