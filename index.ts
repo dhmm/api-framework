@@ -1,4 +1,4 @@
-import Framework from "./core/framework/framework";
+import Framework from "./src/system/framework/framework";
 
 
 const framework = new Framework()

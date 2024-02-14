@@ -1,4 +1,4 @@
-import ConsoleLogger from "../framework/utils/console-logger/consoleLogger";
+import ConsoleLogger from "../utils/console-logger/consoleLogger";
 
 const express = require('express');
 const app = express();
