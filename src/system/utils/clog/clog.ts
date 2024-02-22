@@ -6,8 +6,15 @@ import TextColor from "./colors/text-color";
  */
 class clog
 {
+    static #getObjectAsStr(obj: Object) {
+        return JSON.stringify(obj, null, " ");
+    }
 	static #log(str: any, textColor: string , bgColor?: string) {
+       if(typeof(str) === "object"){
+        console.log(textColor+bgColor+clog.#getObjectAsStr(str)+TextColor.WHITE+BgColor.BLACK);         
+       } else {
 		console.log(textColor+bgColor+str+TextColor.WHITE+BgColor.BLACK);
+       }
 	}
 	static log(str: string) {
 		clog.#log(str, TextColor.WHITE, BgColor.BLACK);
