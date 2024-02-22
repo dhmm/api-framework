@@ -5,12 +5,16 @@ import clog from "../utils/clog/clog";
 
 class Framework
 {
-	appConfig: any = null;
+	pathsConfig: any = null;
+    envConfig: any = null;
 	server = new Server();
 	start() {		
 		clog.blue('Starting framework version : '+ SystemConstants.SystemVersion);		
-		this.appConfig = ConfigLoader.loadPathsConfig();
-		clog.yellow(this.appConfig);
+		this.pathsConfig = ConfigLoader.loadPathsConfig();
+		clog.yellow(this.pathsConfig);
+        this.envConfig = ConfigLoader.loadEnvConfig(this.pathsConfig);
+		clog.yellow(this.envConfig);
+
 		this.server.start();
 	}
 }
