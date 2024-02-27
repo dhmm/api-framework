@@ -1,35 +1,36 @@
 import PathsConfig from "../../app/config/paths";
 import 'dotenv/config';
+import * as fs from 'fs';
 
 class ConfigLoader
 {
 	static loadPathsConfig()
 	{        
 		let pathsConfig = {
+            rootDir : PathsConfig.RootDir,
 			appDir :  PathsConfig.AppDir,
 			configDir :  PathsConfig.ConfigDir,
 			envConfigDir :  PathsConfig.EnvConfigDir,
 		}
 		return pathsConfig;
 	}
-    static loadEnvConfig(pathsConfig : any ) : any
+    static async loadEnvConfig(pathsConfig : any ) : Promise<any>
     {        
         let environment = process.env.ENVIRONMENT;
         if(!environment) {
             environment = "development";
-        }        
+        }       
         const filePath = pathsConfig.envConfigDir+'/'+environment+'.json';
         const fs = require('fs');
-        fs.readFileSync(filePath, 'utf-8' , (err, data) => {
+        const config = await fs.readFileSync(filePath, 'utf-8' , (err:any, data:any) => {
             if(err) {
-                console.log(err);
+                return {};
             }
             else {
-                console.log(data);
+                return data;
             }
         });
-        console.log(filePath);
-        return {};
+        return config;
     }
 }
 export default ConfigLoader;

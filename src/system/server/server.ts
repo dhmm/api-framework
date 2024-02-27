@@ -7,7 +7,11 @@ const app = express();
 class Server
 {
 	port = 3000
-	start() {
+	start(config: any = null) {
+        if(config!==null)
+        {
+            this.port = config.port;
+        }
 		clog.magenta('Server starting at port '+this.port);
 		app.listen(this.port)
 	}
