@@ -1,7 +1,6 @@
 //File : system/loaders/config-loader.ts
 import PathsConfig from "../../app/config/paths";
 import 'dotenv/config';
-import * as fs from 'fs';
 import clog from "../utils/clog/clog";
 
 class ConfigLoader
@@ -14,6 +13,7 @@ class ConfigLoader
 			appDir :  PathsConfig.AppDir,
 			configDir :  PathsConfig.ConfigDir,
 			envConfigDir :  PathsConfig.EnvConfigDir,
+			controllersDir: PathsConfig.ControllersDir,
 		}		
 		return pathsConfig;
 	}
