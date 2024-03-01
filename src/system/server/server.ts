@@ -1,3 +1,4 @@
+//File : system/server/server.ts
 import clog from "../utils/clog/clog";
 
 const express = require('express');
@@ -8,10 +9,10 @@ class Server
 {
 	port = 3000
 	start(config: any = null) {
-        if(config!==null)
-        {
-            this.port = config.port;
-        }
+    if(config!==null)
+    {
+      this.port = config.port;
+    }
 		clog.magenta('Server starting at port '+this.port);
 		app.listen(this.port)
 	}

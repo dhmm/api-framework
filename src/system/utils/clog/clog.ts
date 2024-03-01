@@ -11,9 +11,9 @@ class clog
     }
 	static #log(str: any, textColor: string , bgColor?: string) {
        if(typeof(str) === "object"){
-        console.log(textColor+bgColor+clog.#getObjectAsStr(str)+TextColor.WHITE+BgColor.BLACK);         
-       } else {
-		console.log(textColor+bgColor+str+TextColor.WHITE+BgColor.BLACK);
+        	console.log(textColor+bgColor+clog.#getObjectAsStr(str)+TextColor.WHITE+BgColor.BLACK);
+       } else {				
+					console.log(textColor+bgColor+str+TextColor.WHITE+BgColor.BLACK);
        }
 	}
 	static log(str: string) {
@@ -34,8 +34,8 @@ class clog
 	static magenta(str: string, bgColor?: BgColor | null) {		
 		clog.#log(str, TextColor.MAGENTA, bgColor || '');
 	}
-	static cyan(str: string, bgColor?: BgColor | null) {		
-		clog.#log(str, TextColor.CYAN), bgColor || '';
+	static cyan(str: string, bgColor?: BgColor | null) {			
+		clog.#log(str, TextColor.CYAN, bgColor || '');		
 	}
 }
 export default clog;
