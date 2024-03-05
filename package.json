@@ -5,6 +5,9 @@
   "main": "index.ts",
   "scripts": {
     "dev": "npx nodemon src/index.ts",
+		"clean": "npx rimraf dist/* --glob",
+		"build": "npm run clean && npx tsc",
+		"start": "node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
