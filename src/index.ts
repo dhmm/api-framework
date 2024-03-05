@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import Framework from "./system/framework/framework";
 
 

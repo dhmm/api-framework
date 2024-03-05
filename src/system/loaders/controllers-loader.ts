@@ -6,6 +6,7 @@ class ControllersLoader
 {
 	static async loadControllers(pathsConfig: any, envConfig: any): Promise<any>
 	{
+		console.log(envConfig);
 		if(envConfig.debug) {
 			clog.blue('BEGIN: ControllersLoader->loadControllers');
 		}
