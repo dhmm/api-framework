@@ -11,30 +11,31 @@ const app = express();
 class Framework
 {
 	pathsConfig: any = null;
-    envConfig: any = null;
+  envConfig: any = null;
 	server = new Server();	
 
 	async start() {		
 		clog.magenta('Starting framework version : '+ SystemConstants.SystemVersion);
-        //Load paths configurations		
+    
+		//Load paths configurations		
 		this.pathsConfig = ConfigLoader.loadPathsConfig();
 		clog.yellow(this.pathsConfig);
 
-        //Load Environment configuration
-        try {
-            let jsonConfig = await ConfigLoader.loadEnvConfig(this.pathsConfig);
-            this.envConfig = JSON.parse(jsonConfig);  					
-        }
-        catch {
-        this.envConfig = null;
-        clog.red("ERROR : Cannot load application CONFIG file");
-        }
+		//Load Environment configuration
+		try {
+			let jsonConfig = await ConfigLoader.loadEnvConfig(this.pathsConfig);
+			this.envConfig = JSON.parse(jsonConfig);  					
+		}
+		catch {
+			this.envConfig = null;
+			clog.red("ERROR : Cannot load application CONFIG file");
+		}
 		clog.yellow(this.envConfig);
 
-        //Load routes
-        RoutesLoader.loadRoutes(app)
-        
-        //Start server
+		//Load routes
+		await RoutesLoader.loadRoutes(app, this.envConfig)				
+		
+		//Start server
 		this.server.start(app, this.envConfig);
 	}
 }

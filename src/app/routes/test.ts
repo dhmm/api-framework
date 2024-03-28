@@ -1,13 +1,6 @@
-// import Test from "../controllers/Test"
-
-// module.exports = (app) => { 
-//     let testController = new Test();
-//     app.get('/test/route1' , testController.route1);
-// }
-
-
-module.exports=function(app){
-    app.get('/',function(req,res){
-       res.send('/ called successfully...');
-    });
-  }
+const express = require('express');
+const router = express.Router();
+router.get('/test/route1' , (req:any, res:any) => {
+	res.send('test/route1 is working');
+})
+module.exports = router;
