@@ -23,7 +23,25 @@ class RoutesLoader
 							if(envConfig.debug) {								
 									clog.cyan('>>> LOADING ROUTE :'+route);								
 							}
-							app.use(require(PathsConfig.AbsRoutesDir+PathsConfig.DS+file));							
+							const routes =  require(PathsConfig.AbsRoutesDir+PathsConfig.DS+file);	
+							if(routes) {
+								routes.forEach( (routeDefinition:any) => {
+									let httpMethodType = routeDefinition[0];
+									let routeURL = routeDefinition[1];
+									let funcToRun = routeDefinition[2];
+									switch(httpMethodType.toLowerCase())
+									{
+										case 'get' :
+											app.get(routeURL, funcToRun);
+											break;
+										case 'post' :
+											app.post(routeURL, funcToRun);
+											break;
+									}
+								});
+							}
+							// console.log(funcs[0]);
+							//wotking : app.use(require(PathsConfig.AbsRoutesDir+PathsConfig.DS+file));		
 						}
 					}
 			});			

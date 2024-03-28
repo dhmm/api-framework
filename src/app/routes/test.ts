@@ -1,6 +1,7 @@
-const express = require('express');
-const router = express.Router();
-router.get('/test/route1' , (req:any, res:any) => {
-	res.send('test/route1 is working');
-})
-module.exports = router;
+import Test from "../controllers/Test";
+let test = new Test();
+
+module.exports =  [
+	[ 'GET' , '/test/route1' , test.route1 ],
+	[ 'GET' , '/test/route2' , test.route2 ],
+];
