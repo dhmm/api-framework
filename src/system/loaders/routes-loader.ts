@@ -37,6 +37,15 @@ class RoutesLoader
 										case 'post' :
 											app.post(routeURL, funcToRun);
 											break;
+										case 'put':
+											app.put(routeURL, funcToRun);
+											break;
+										case 'delete':
+											app.delete(routeURL, funcToRun);
+											break;
+										case 'patch':
+											app.patch(routeURL, funcToRun);
+											break;										
 									}
 								});
 							}
