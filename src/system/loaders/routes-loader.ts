@@ -40,12 +40,19 @@ class RoutesLoader
 										case 'put':
 											app.put(routeURL, funcToRun);
 											break;
+										case 'patch':
+											app.patch(routeURL, funcToRun);
+											break;
 										case 'delete':
 											app.delete(routeURL, funcToRun);
 											break;
-										case 'patch':
-											app.patch(routeURL, funcToRun);
-											break;										
+										case 'options':
+											app.options(routeURL, funcToRun);
+											break;
+										case 'head':
+											app.head(routeURL, funcToRun);
+											break;
+																				
 									}
 								});
 							}
