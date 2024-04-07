@@ -1,4 +1,6 @@
+//File : system/loaders/routes-loader.ts
 import PathsConfig from "../../app/config/paths";
+import HttpMethods from "../http/HttpMethods";
 import clog from "../utils/clog/clog";
 
 class RoutesLoader {
@@ -39,43 +41,43 @@ class RoutesLoader {
 
 							if (envConfig.debug) {
 								clog.red('Binding route '+route+' to controller '+controller+'.'+funcToRun);
-							}
+							}					
 
 							switch (httpMethodType.toLowerCase()) {
-								case 'get':
+								case HttpMethods.GET:
 									app.get(route, (req: any, res: any) => {
 										controllers[controller][funcToRun](req, res)
 									});
 									break;
-								case 'post':
+								case HttpMethods.POST:
 									app.post(route, (req: any, res: any) => {
 										controllers[controller][funcToRun](req, res)
 									});
 									break;
-								case 'put':
+								case HttpMethods.PUT:
 									app.put(route, (req: any, res: any) => {
 										controllers[controller][funcToRun](req, res)
-									});
+									});							
 									break;
-								case 'patch':
+								case HttpMethods.PATCH:
 									app.patch(route, (req: any, res: any) => {
 										controllers[controller][funcToRun](req, res)
-									});
+									});									
 									break;
-								case 'delete':
+								case HttpMethods.DELETE:
 									app.delete(route, (req: any, res: any) => {
 										controllers[controller][funcToRun](req, res)
-									});
+									});									
 									break;
-								case 'options':
+								case HttpMethods.OPTIONS:
 									app.options(route, (req: any, res: any) => {
 										controllers[controller][funcToRun](req, res)
-									});
+									});									
 									break;
-								case 'head':
+								case HttpMethods.HEAD:
 									app.head(route, (req: any, res: any) => {
 										controllers[controller][funcToRun](req, res)
-									});
+									});									
 									break;
 
 							}

@@ -1,3 +1,5 @@
+//File : system/utils/clog/colors/bg-color.ts
+
 enum BgColor {
 	BLACK = '\x1b[40m',
 	RED = '\x1b[41m',

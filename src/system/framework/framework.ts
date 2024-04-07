@@ -8,6 +8,8 @@ import clog from "../utils/clog/clog";
 
 const express = require('express');
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 class Framework
 {
@@ -35,7 +37,7 @@ class Framework
 		clog.yellow(this.envConfig);
 
 		//Load Controllers
-		this.controllers = await ControllersLoader.loadControllers(this.envConfig);
+		this.controllers = await ControllersLoader.loadControllers(app, this.envConfig);
 
 		//Load routes
 		await RoutesLoader.loadRoutes(app, this.controllers, this.envConfig)				

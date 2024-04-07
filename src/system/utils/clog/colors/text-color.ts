@@ -1,3 +1,5 @@
+//File : system/utils/clog/colors/text-color.ts
+
 enum TextColor {
 	BLACK = '\x1b[30m',
 	RED = '\x1b[31m',
