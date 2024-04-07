@@ -1,7 +1,5 @@
-import Test from "../controllers/Test";
-let test = new Test();
-
 module.exports =  [
-	[ 'GET' , '/test/route1' , (req:any,res:any)=> test.route1(req,res) ],
-	[ 'GET' , '/test/route2' , test.route2 ],
+	[ 'GET' , '/test/route1' , 'Test' , 'route1' ],
+	[ 'GET' , '/test/route2' , 'Test' , 'route2' ],	
+	[ 'POST' , '/test/route3' , 'Test' , 'route3' ],	
 ];

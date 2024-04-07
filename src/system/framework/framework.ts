@@ -1,6 +1,7 @@
 //File : system/framework/framework.ts
 import SystemConstants from "../constants/system";
 import ConfigLoader from "../loaders/config-loader";
+import ControllersLoader from "../loaders/controllers-loader";
 import RoutesLoader from "../loaders/routes-loader";
 import Server from "../server/server";
 import clog from "../utils/clog/clog";
@@ -12,6 +13,7 @@ class Framework
 {
 	pathsConfig: any = null;
   envConfig: any = null;
+	controllers: Object = {};
 	server = new Server();	
 
 	async start() {		
@@ -32,8 +34,11 @@ class Framework
 		}
 		clog.yellow(this.envConfig);
 
+		//Load Controllers
+		this.controllers = await ControllersLoader.loadControllers(this.envConfig);
+
 		//Load routes
-		await RoutesLoader.loadRoutes(app, this.envConfig)				
+		await RoutesLoader.loadRoutes(app, this.controllers, this.envConfig)				
 		
 		//Start server
 		this.server.start(app, this.envConfig);

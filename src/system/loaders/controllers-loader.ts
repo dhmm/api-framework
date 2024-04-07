@@ -1,26 +1,29 @@
 //File : system/loaders/controllers-loader.ts
 
+import PathsConfig from "../../app/config/paths";
 import clog from "../utils/clog/clog";
-
+const path = require('path');
 class ControllersLoader
 {
-	static async loadControllers(pathsConfig: any, envConfig: any): Promise<any>
+	static async loadControllers(envConfig: any): Promise<any>
 	{
-		console.log(envConfig);
 		if(envConfig.debug) {
 			clog.blue('BEGIN: ControllersLoader->loadControllers');
 		}
-		const controllers = new Array<String>() ;
+		//Controllers object to return
+		let controllers: {[type:string]: Object} = {} ;
 
 		const fs = require('fs');
-		const files:Array<String> = fs.readdirSync(pathsConfig.controllersDir);	
+		const files:Array<String> = fs.readdirSync(PathsConfig.ControllersDir);	
 
 		files.forEach( (file) => {
 			let extension  = file.split('.').pop();
 			if(extension == 'ts')
 			{
-				let fileName = file.split('.').shift();
-				controllers.push(pathsConfig.controllersDir+'/'+fileName+'.ts');
+				let fileName = path.parse(file).name;
+				let key = path.parse(file).name.toLowerCase();			
+				const controllerClass = require(PathsConfig.AbsControllersDir+'/'+fileName+'.ts');
+				controllers[key] = new controllerClass();
 			}
 		});
 		if(envConfig.debug) {
