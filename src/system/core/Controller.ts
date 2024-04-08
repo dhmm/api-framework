@@ -1,5 +1,4 @@
 //File : system/core/controller.ts
-import HttpMethods from "../http/HttpMethods";
 import Request from "../http/Request";
 
 class Controller
