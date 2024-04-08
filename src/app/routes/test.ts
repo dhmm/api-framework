@@ -1,5 +1,5 @@
 module.exports =  [
-	[ 'GET' , '/test/route1' , 'Test' , 'route1' ],
+	[ 'GET' , '/test/route1/:age/:num' , 'Test' , 'route1' ],
 	[ 'GET' , '/test/route2' , 'Test' , 'route2' ],	
 	
 	[ 'GET' 	 ,	'/test/route' , 'Test' , 'route' ],	

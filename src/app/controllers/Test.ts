@@ -7,7 +7,14 @@ class Test extends Controller {
 	}
 
 	//test/route1
-	route1(req: any, res: any) {		
+	route1(req: any, res: any) {	
+        let request = this.getRequest(req);
+        console.log(request);        
+        console.log(request.getParam('age'));
+        console.log(this.getGetVar('getvar'));
+        console.log(this.getPostVar('var1'));
+
+
 		res.send("test/route1 -> with method: "+this.getMethod()+" and route: "+this.getRoute());
 	}
 	//test/route2

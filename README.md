@@ -17,13 +17,13 @@ We can define our routes in a separated route file for each controller. Let's as
 We can define our routes in the "routes" folder with name test.ts as exists :
 ```
 module.exports =  [
-	[ 'GET' 	 ,	'/test/route' , 'Test' , 'route' ],	
-	[ 'POST'	 ,	'/test/route' , 'Test' , 'route' ],	
-	[ 'PUT' 	 ,	'/test/route' , 'Test' , 'route' ],	
-	[ 'PATCH'  , 	'/test/route' , 'Test' , 'route' ],	
-	[ 'DELETE' , 	'/test/route' , 'Test' , 'route' ],	
-	[ 'OPTIONS', 	'/test/route' , 'Test' , 'route' ],	
-	[ 'HEAD'	 , 	'/test/route' , 'Test' , 'route' ],	
+	[ 'GET'     ,   '/test/route' , 'Test' , 'route' ],	
+	[ 'POST'    ,   '/test/route' , 'Test' , 'route' ],	
+	[ 'PUT'     ,   '/test/route' , 'Test' , 'route' ],	
+	[ 'PATCH'   ,   '/test/route' , 'Test' , 'route' ],	
+	[ 'DELETE'  ,   '/test/route' , 'Test' , 'route' ],	
+	[ 'OPTIONS' ,   '/test/route' , 'Test' , 'route' ],	
+	[ 'HEAD'    ,   '/test/route' , 'Test' , 'route' ],	
 ];
 ```
 At each line we have 
@@ -67,3 +67,22 @@ With this.getMethod() we can get the method fo thre request. ( GET, POST etc.)
 
 ### getRoute()
 With this.getRoute we will get the route of the request. For example /test/route
+
+### getGetVar(variableName:string)
+With this.getGetVar(varName) we can get the query stinrg params from the GET request in the URL after the ?, like .com?var1=value1&var2=value2 etc...
+
+### getPostVar(variableName:string)
+With this.getPostVar(varName) we can get posted variables.
+
+## Request
+In our route function we can call the method getRequest to get ter Request information
+
+### getRequest(req:any)
+```
+let request = this.getRequest(req)
+```
+### getParam(paramName:string)
+We can get the paramters from the url
+```
+this.getRequest().getParam('age')
+```
