@@ -98,6 +98,12 @@ We get header paramtere with this function
 this.getHeaderParam('a_token');
 ```
 
+### getCookie(cookieKey:string)
+We get the cookies of the request
+```
+this.getCookie('aCookieKey');
+```
+
 ## Request
 In our route functions we can call the method **getRequest** to get the Request class
 The **Request** class has the following params that we can access
@@ -109,7 +115,7 @@ The **Request** class has the following params that we can access
 5. **isSecure:boolean** - Http or Https
 6. **params:any** - The the params of the request
 7. **headers:any** - The request headers in array
-
+8. **cookies:any** - The cookies of the request
 ## Request methods
 
 ### getParam(paramName:string)
@@ -122,22 +128,33 @@ We can get header params with this function
 ```
 this.getRequest().getHeader('a_token');
 ```
+### getCookie(cookieKey:string)
+```
+this.getRequest().getCookie('aCookieKey');
+```
 
 ## Response
 We can return Responses from our route function in our controller
 The main class is the **Response** class. The definition of the class has the following properties :
 1. **status:number** - The status code of the response
-1. **data: object|null** - The data that we wan to send as response
-1. **error: string|null** - If we want to send 1 error message we use this
-1. **errors: object|null** - If we want to sned multiple errors, like field validations we can use this
+2. **data: object|null** - The data that we wan to send as response
+3. **error: string|null** - If we want to send 1 error message we use this
+4. **errors: object|null** - If we want to sned multiple errors, like field validations we can use this
+5. **headers: any|null** - The headers of the response are here
+6> **cookies: any|null** - The cookies of the response
 
 ### Standart Response 
 We can use a standart response (status = 200 ) like this :
 ```
 route1(req: any, res: any) {              
-    return new Response(res, statusCode, data, error, errors, headers);
+    return new Response(res, statusCode, data, error, errors, headers, cookies);
 }
 ```
+#### headers
+In the parameter headers we can setup our header paramters
+#### cookies
+In the cookies parameter we can add our own cookies
+
 > **IMPORTANT !!!** It's important to import the framework's Response class because it won't terminate the request
 > *import Response from "../../system/http/responses/Response";*
 
@@ -158,39 +175,56 @@ let headers: any = [
 
 return new OKResponse(res, headerVar1, "", null, headers);
 ```
-
+### Sending Cookies in Response
+We must define cookies firstly
+```
+let cookies: any = 
+[
+	['cookie-1' , 'cookie 1 value'],
+	['cookie-2' , 'cookie 2 value'],
+]
+```
+Then we can send it with Response
+```
+let cookies: any = 
+[
+	['cookie-1' , 'cookie 1 value'],
+	['cookie-2' , 'cookie 2 value'],
+]
+return new OKResponse(res, headerVar1, "", null, headers, cookies);
+```
 ### Supported response types
 Except the standart Response system support the following responses 
 1. OKResponse (200),
 ```
-return new OKResponse(res:any, data = null, error = "", errors = null, headers=null)
+return new OKResponse(res:any, data = null, error = "", errors = null, headers=null, cookies=null)
 ```
 2. CreatedResponse (201),
 ```
-return new CreatedResponse(res:any, data = null, error = "", errors = null, headers=null)
+return new CreatedResponse(res:any, data = null, error = "", errors = null, headers=null, cookies=null)
 ``` 
 3. AcceptedResponse (202), 
 ```
-return new AcceptedResponse(res:any, data = null, error = "", errors = null, headers=null)
+return new AcceptedResponse(res:any, data = null, error = "", errors = null, headers=null, cookies=null)
 ```
 4. NoContentResponse (204),
 ```
-return new NoContentResponse(res:any, data = null, error = "", errors = null, headers=null)
+return new NoContentResponse(res:any, data = null, error = "", errors = null, headers=null, cookies=null)
 ```
 5. BadRequest (400),
 ```
-return new BadRequest(res:any, data = null, error = "", errors = null, headers=null)
+return new BadRequest(res:any, data = null, error = "", errors = null, headers=null, cookies=null)
 ```
 6. UnauthorizedResponse (401),
 ```
-return new UnauthorizedResponse(res:any, data = null, error = "", errors = null, headers=null)
+return new UnauthorizedResponse(res:any, data = null, error = "", errors = null, headers=null, cookies=null)
 ```
 7. ForbiddenResponse (403),
 ```
-return new ForbiddenResponse(res:any, data = null, error = "", errors = null, headers=null)
+return new ForbiddenResponse(res:any, data = null, error = "", errors = null, headers=null, cookies=null)
 ```
 8. NotFoundResponse (404)
 ```
-return new NotFoundResponse(res:any, error = "Not found", headers=null)
+return new NotFoundResponse(res:any, error = "Not found", headers=null, cookies=null)
 ```
 

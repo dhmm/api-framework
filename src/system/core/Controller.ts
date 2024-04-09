@@ -36,6 +36,10 @@ class Controller {
 	getHeaderParam(headerParam: string) {
 		return this.#req.headers[headerParam];
 	}
+	getCookie(cookieKey:string)
+	{
+		return this.#req.cookies[cookieKey];
+	}
 }
 
 export default Controller;

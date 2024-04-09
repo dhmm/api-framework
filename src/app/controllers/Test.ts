@@ -19,12 +19,25 @@ class Test extends Controller {
 
 		//res.send("test/route1 -> with method: "+this.getMethod()+" and route: "+this.getRoute());
 		let headerVar1 = this.getHeaderParam('headervar1');
+		console.log(headerVar1);
+		let headerVar1_2 = this.getRequest(req).getHeader('headervar1');
+		console.log(headerVar1_2);
 		let headers: any = [
 			["h1", "v1"],
 			["h2", "v2"],
 		];
 
-		return new OKResponse(res, headerVar1, "", null, headers);
+		console.log('OUR COOKIE : '+this.getRequest(req).getCookie('CookieKey1'));	
+		console.log('ALl COOKIES');
+		console.log(this.getRequest(req).cookies);
+		
+		
+		let cookies: any = 
+		[
+			['cookie-1' , 'cookie 1 value'],
+			['cookie-2' , 'cookie 2 value'],
+		]
+		return new OKResponse(res, headerVar1, "", null, headers, cookies);
 	}
 	//test/route2
 	route2(req: any, res: any) {

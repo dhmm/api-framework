@@ -8,6 +8,7 @@ class Request
     isSecure:boolean;
     params:any;
 		headers:any;
+		cookies:any;
 
     constructor(req:any)
     {        
@@ -19,6 +20,7 @@ class Request
         this.isSecure = req.secure;
         this.params = req.params;
 				this.headers = req.headers;
+				this.cookies = req.cookies;
     }
 
     getParam(paramName:string)
@@ -28,6 +30,10 @@ class Request
 		getHeader(headerParam:string)
 		{
 			return this.headers[headerParam];
+		}
+		getCookie(cookieKey:string)
+		{
+			return this.cookies[cookieKey];
 		}
 }
 export default Request;
