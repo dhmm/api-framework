@@ -7,6 +7,7 @@ class Request
     method:string;
     isSecure:boolean;
     params:any;
+		headers:any;
 
     constructor(req:any)
     {        
@@ -17,11 +18,16 @@ class Request
         this.method = req.method;
         this.isSecure = req.secure;
         this.params = req.params;
+				this.headers = req.headers;
     }
 
     getParam(paramName:string)
     {
         return this.params[paramName];
     }
+		getHeader(headerParam:string)
+		{
+			return this.headers[headerParam];
+		}
 }
 export default Request;

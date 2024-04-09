@@ -92,6 +92,12 @@ Get the request information
 let request = this.getRequest(req)
 ```
 
+### getHeaderParam(headerParam: string) 
+We get header paramtere with this function
+```
+this.getHeaderParam('a_token');
+```
+
 ## Request
 In our route functions we can call the method **getRequest** to get the Request class
 The **Request** class has the following params that we can access
@@ -102,6 +108,7 @@ The **Request** class has the following params that we can access
 4. **method:string** - The HTTP request method
 5. **isSecure:boolean** - Http or Https
 6. **params:any** - The the params of the request
+7. **headers:any** - The request headers in array
 
 ## Request methods
 
@@ -109,6 +116,11 @@ The **Request** class has the following params that we can access
 We can get the parameters from the url
 ```
 this.getRequest().getParam('age')
+```
+### 	getHeader(headerParam:string)
+We can get header params with this function
+```
+this.getRequest().getHeader('a_token');
 ```
 
 ## Response
@@ -123,44 +135,62 @@ The main class is the **Response** class. The definition of the class has the fo
 We can use a standart response (status = 200 ) like this :
 ```
 route1(req: any, res: any) {              
-    return new Response(res, statusCode, data, error, errors);
+    return new Response(res, statusCode, data, error, errors, headers);
 }
 ```
 > **IMPORTANT !!!** It's important to import the framework's Response class because it won't terminate the request
 > *import Response from "../../system/http/responses/Response";*
 
+### Sending Header Params in Response
+We can define header params in an array like this
+```
+let headers: any = [
+	["h1", "v1"],
+	["h2", "v2"],
+];
+```
+Then in any response we can add this array into parameters. For example
+```
+let headers: any = [
+	["h1", "v1"],
+	["h2", "v2"],
+];
+
+return new OKResponse(res, headerVar1, "", null, headers);
+```
+
 ### Supported response types
 Except the standart Response system support the following responses 
 1. OKResponse (200),
 ```
-return new OKResponse(res:any, data = null, error = "", errors = null)
+return new OKResponse(res:any, data = null, error = "", errors = null, headers=null)
 ```
 2. CreatedResponse (201),
 ```
-return new CreatedResponse(res:any, data = null, error = "", errors = null)
+return new CreatedResponse(res:any, data = null, error = "", errors = null, headers=null)
 ``` 
 3. AcceptedResponse (202), 
 ```
-return new AcceptedResponse(res:any, data = null, error = "", errors = null)
+return new AcceptedResponse(res:any, data = null, error = "", errors = null, headers=null)
 ```
 4. NoContentResponse (204),
 ```
-return new NoContentResponse(res:any, data = null, error = "", errors = null)
+return new NoContentResponse(res:any, data = null, error = "", errors = null, headers=null)
 ```
 5. BadRequest (400),
 ```
-return new BadRequest(res:any, data = null, error = "", errors = null)
+return new BadRequest(res:any, data = null, error = "", errors = null, headers=null)
 ```
 6. UnauthorizedResponse (401),
 ```
-return new UnauthorizedResponse(res:any, data = null, error = "", errors = null)
+return new UnauthorizedResponse(res:any, data = null, error = "", errors = null, headers=null)
 ```
 7. ForbiddenResponse (403),
 ```
-return new ForbiddenResponse(res:any, data = null, error = "", errors = null)
+return new ForbiddenResponse(res:any, data = null, error = "", errors = null, headers=null)
 ```
 8. NotFoundResponse (404)
 ```
-return new NotFoundResponse(res:any, error = "Not found")
+return new NotFoundResponse(res:any, error = "Not found", headers=null)
 ```
 
