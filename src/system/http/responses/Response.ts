@@ -7,7 +7,7 @@ class Response
     error: string|null;
     errors: object|null;
 
-    constructor(res:any, status=201,  data = null, error = "", errors = null) {
+    constructor(res:any, status=200,  data = null, error = "", errors = null) {
         this.status = status;
         this.data = data;
         this.error = error;

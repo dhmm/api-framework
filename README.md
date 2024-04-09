@@ -86,15 +86,81 @@ this.getGetVar('var1');
 ### getPostVar(variableName:string)
 With this.getPostVar(varName) we can get posted variables.
 
-## Request
-In our route functions we can call the method **getRequest** to get the Request class
-
 ### getRequest(req:any)
+Get the request information
 ```
 let request = this.getRequest(req)
 ```
+
+## Request
+In our route functions we can call the method **getRequest** to get the Request class
+The **Request** class has the following params that we can access
+
+1. **baseUrl:string** - The base url
+2. **ip:string** - The IP address of the request
+3. **route:string** The route lile test/route1
+4. **method:string** - The HTTP request method
+5. **isSecure:boolean** - Http or Https
+6. **params:any** - The the params of the request
+
+## Request methods
+
 ### getParam(paramName:string)
 We can get the parameters from the url
 ```
 this.getRequest().getParam('age')
 ```
+
+## Response
+We can return Responses from our route function in our controller
+The main class is the **Response** class. The definition of the class has the following properties :
+1. **status:number** - The status code of the response
+1. **data: object|null** - The data that we wan to send as response
+1. **error: string|null** - If we want to send 1 error message we use this
+1. **errors: object|null** - If we want to sned multiple errors, like field validations we can use this
+
+### Standart Response 
+We can use a standart response (status = 200 ) like this :
+```
+route1(req: any, res: any) {              
+    return new Response(res, statusCode, data, error, errors);
+}
+```
+> **IMPORTANT !!!** It's important to import the framework's Response class because it won't terminate the request
+> *import Response from "../../system/http/responses/Response";*
+
+### Supported response types
+Except the standart Response system support the following responses 
+1. OKResponse (200),
+```
+return new OKResponse(res:any, data = null, error = "", errors = null)
+```
+2. CreatedResponse (201),
+```
+return new CreatedResponse(res:any, data = null, error = "", errors = null)
+``` 
+3. AcceptedResponse (202), 
+```
+return new AcceptedResponse(res:any, data = null, error = "", errors = null)
+```
+4. NoContentResponse (204),
+```
+return new NoContentResponse(res:any, data = null, error = "", errors = null)
+```
+5. BadRequest (400),
+```
+return new BadRequest(res:any, data = null, error = "", errors = null)
+```
+6. UnauthorizedResponse (401),
+```
+return new UnauthorizedResponse(res:any, data = null, error = "", errors = null)
+```
+7. ForbiddenResponse (403),
+```
+return new ForbiddenResponse(res:any, data = null, error = "", errors = null)
+```
+8. NotFoundResponse (404)
+```
+return new NotFoundResponse(res:any, error = "Not found")
+```
+
