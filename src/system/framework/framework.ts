@@ -2,6 +2,7 @@
 import SystemConstants from "../constants/system";
 import ConfigLoader from "../loaders/config-loader";
 import ControllersLoader from "../loaders/controllers-loader";
+import MiddlewaresLoader from "../loaders/middlewares-loader";
 import RoutesLoader from "../loaders/routes-loader";
 import Server from "../server/server";
 import clog from "../utils/clog/clog";
@@ -17,7 +18,8 @@ class Framework
 {
 	pathsConfig: any = null;
   envConfig: any = null;
-	controllers: Object = {};
+	controllers: Object = {};	
+	middlewares: Object = {};
 	server = new Server();	
 
 	async start() {		
@@ -41,8 +43,11 @@ class Framework
 		//Load Controllers
 		this.controllers = await ControllersLoader.loadControllers(app, this.envConfig);
 
+		//Load middleware
+		this.middlewares = await MiddlewaresLoader.loadMiddlewares(this.envConfig);		
+
 		//Load routes
-		await RoutesLoader.loadRoutes(app, this.controllers, this.envConfig)				
+		await RoutesLoader.loadRoutes(app, this.controllers, this.middlewares, this.envConfig)				
 		
 		//Start server
 		this.server.start(app, this.envConfig);

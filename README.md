@@ -22,7 +22,7 @@ If we have a controller named **Test** we should have a route file named **test.
 We can define our routes in this file as exists :
 ```
 module.exports =  [
-	[ 'GET'     ,   '/test/route' , 'Test' , 'route' ],	
+	[ 'GET'     ,   '/test/route' , 'Test' , 'route', ['Middleware1' , 'Middleware2'] ],	
 	[ 'POST'    ,   '/test/route' , 'Test' , 'route' ],	
 	[ 'PUT'     ,   '/test/route' , 'Test' , 'route' ],	
 	[ 'PATCH'   ,   '/test/route' , 'Test' , 'route' ],	
@@ -37,7 +37,42 @@ Each line have a single route. The parameters of the route are:
 2. Route
 3. Controller's class name
 4. The function which we want to run in our controller
+5. The middlewares that will run befores of the contoller
 
+## Defining middlewares
+We must define a middleware as class with a function named **run**
+Here is the code
+```
+class Middleware1
+{
+	run(req:any, res:any, next:any) {
+		console.log('middleware 1 worked');
+		next();
+	}
+}
+
+module.exports = Middleware1;
+```
+If we want to check the age of the user form the url param we could have the following middleware
+```
+import Request from "../../system/http/Request";
+import { ForbiddenResponse } from "../../system/http/responses/Responses";
+
+class Middleware1
+{
+	run(req:any, res:any, next:any) {
+		console.log('middleware 1 middleware');
+		let request = new Request(req);
+		if(request.getParam('age') >= 18 ) {
+			next();
+		} else {
+			return new ForbiddenResponse(res,null,"You are too young");
+		}
+	}
+}
+
+module.exports = Middleware1;
+```
 ## Using Controllers
 ### Starter code of the controller
 The starter code of the controller must be :
