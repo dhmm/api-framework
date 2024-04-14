@@ -3,38 +3,24 @@ import PathsConfig from "../../app/config/paths";
 import 'dotenv/config';
 import clog from "../utils/clog/clog";
 
-class ConfigLoader
-{
-	static loadPathsConfig()
-	{       
-		clog.blue('BEGIN : ConfigLoader->loadPathsConfig') ;
-		let pathsConfig = {
-      rootDir : PathsConfig.RootDir,
-			appDir :  PathsConfig.AppDir,
-			configDir :  PathsConfig.ConfigDir,
-			envConfigDir :  PathsConfig.EnvConfigDir,
-			controllersDir: PathsConfig.ControllersDir,
-		}		
-		return pathsConfig;
+class ConfigLoader {
+	static async loadEnvConfig(): Promise<any> {
+		clog.blue('BEGIN : ConfigLoader->loadEnvConfig');
+		let environment = process.env.ENVIRONMENT;
+		if (!environment) {
+			environment = "development";
+		}
+		const filePath = PathsConfig.EnvConfigDir + '/' + environment + '.json';
+		const fs = require('fs');
+		const config = await fs.readFileSync(filePath, 'utf-8', (err: any, data: any) => {
+			if (err) {
+				return {};
+			}
+			else {
+				return data;
+			}
+		});
+		return config;
 	}
-    static async loadEnvConfig() : Promise<any>
-    {       
-				clog.blue('BEGIN : ConfigLoader->loadEnvConfig') ; 
-        let environment = process.env.ENVIRONMENT;
-        if(!environment) {
-            environment = "development";
-        }       
-        const filePath = PathsConfig.EnvConfigDir+'/'+environment+'.json';
-        const fs = require('fs');
-        const config = await fs.readFileSync(filePath, 'utf-8' , (err:any, data:any) => {
-            if(err) {
-                return {};
-            }
-            else {
-                return data;
-            }
-        });
-        return config;
-    }
 }
 export default ConfigLoader;

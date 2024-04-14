@@ -1,12 +1,13 @@
 //File : system/loaders/routes-loader.ts
 import PathsConfig from "../../app/config/paths";
+import EnvConfig from "../config/env-config";
 import HttpMethods from "../http/HttpMethods";
 import clog from "../utils/clog/clog";
 
 class RoutesLoader {
-	static async loadRoutes(app: any | null, controllers: any, middlewares: any, envConfig: any) {
+	static async loadRoutes(app: any | null, controllers: any, middlewares: any) {
 
-		if (envConfig.debug) {
+		if (EnvConfig.config.debug) {
 			clog.blue('BEGIN: RoutesLoader->loadRoutes');
 		}
 
@@ -15,19 +16,19 @@ class RoutesLoader {
 
 		fs.readdirSync(PathsConfig.RoutesDir).forEach((file: any) => {
 			let route = PathsConfig.RoutesDir + PathsConfig.DS + file;
-			if (envConfig.debug) {
+			if (EnvConfig.config.debug) {
 				if (path.extname(route) == '.ts') {
 					clog.cyan('==> NEXT ROUTE :' + route);
 				}
 			}
 			if (fs.existsSync(route)) {
 				if (path.extname(route) == '.ts') {
-					if (envConfig.debug) {
+					if (EnvConfig.config.debug) {
 						clog.cyan('>>> LOADING ROUTE :' + route);
 					}
 					const routes = require(PathsConfig.AbsRoutesDir + PathsConfig.DS + file);
 
-					if (envConfig.debug) {
+					if (EnvConfig.config.debug) {
 						clog.magenta("Loaded routes are :")
 						clog.magenta(routes);
 					}
@@ -40,20 +41,20 @@ class RoutesLoader {
 							let funcToRun = routeDefinition[3];
 							let middlewaresToRun = routeDefinition[4];
 
-							if (envConfig.debug) {
+							if (EnvConfig.config.debug) {
 								clog.red('Binding route ' + route + ' to controller ' + controller + '.' + funcToRun);
 							}
 
 							//Load middlewares to functions array to be able to use as middleware on a route
 							let middlewareFuncs: any = [];
 							if (middlewaresToRun != undefined && middlewaresToRun != null) {
-								if (envConfig.debug) {
+								if (EnvConfig.config.debug) {
 									clog.green('Route ' + route + ' has the following middlewares');
 								}
 								middlewaresToRun.forEach((middleware: any) => {
 									middlewareFuncs.push(middlewares[middleware]);
 
-									if (envConfig.debug) {
+									if (EnvConfig.config.debug) {
 										clog.green(middleware);
 									}
 								});

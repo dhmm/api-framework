@@ -1,3 +1,5 @@
+import clog from "../../system/utils/clog/clog";
+
 class PathsConfig 
 {
 	static DS = '/';
@@ -36,6 +38,39 @@ class PathsConfig
 		PathsConfig.AbsControllersDir = PathsConfig.AbsAppDir+PathsConfig.DS+PathsConfig.ControllersFolder;
 
 		PathsConfig.AbsRoutesDir = PathsConfig.AbsAppDir+PathsConfig.DS+PathsConfig.RoutesFolder;
+	}
+
+	static LogPaths()
+	{
+		clog.yellow("==== PathsConfig ====");
+		clog.yellow('DS = '+this.DS);
+		clog.yellow('RootFolder = '+this.RootFolder);
+		clog.yellow('AppFolder = '+this.AppFolder);
+		clog.yellow('ConfigFolder = '+this.ConfigFolder);
+		clog.yellow('EnvConfigFolder = '+this.EnvConfigFolder);
+		clog.yellow('ControllersFolder = '+this.ControllersFolder);
+		clog.yellow('MiddlewaresFolder = '+this.MiddlewaresFolder);
+		clog.yellow('RoutesFolder = '+this.RoutesFolder);
+
+		//Non absolute paths	
+		clog.yellow('RootDir = '+this.RootDir);
+		clog.yellow('AppDir = '+this.AppDir);
+		clog.yellow('ConfigDir = '+this.ConfigDir);
+		clog.yellow('EnvConfigDir = '+this.EnvConfigDir);
+		clog.yellow('ControllersDir = '+this.ControllersDir);
+		clog.yellow('MiddlewaresDir = '+this.MiddlewaresDir);
+		clog.yellow('RoutesDir = '+this.RoutesDir);
+
+		//Absolute paths will set at the beginning of the system
+		clog.yellow('AbsRootDir = '+this.AbsRootDir);
+		clog.yellow('AbsAppDir = '+this.AbsAppDir);
+		clog.yellow('AbsConfigDir = '+this.AbsConfigDir);
+		clog.yellow('AbsEnvConfigDir = '+this.AbsEnvConfigDir);
+		clog.yellow('AbsControllersDir = '+this.AbsControllersDir);
+		clog.yellow('AbsMiddlewaresDir = '+this.AbsMiddlewaresDir);
+		clog.yellow('AbsRoutesDir = '+this.AbsRoutesDir);
+		clog.yellow("==== END: PathsConfig ====");
+
 	}
 }
 export default PathsConfig;

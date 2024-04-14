@@ -1,13 +1,14 @@
 //File : system/loaders/controllers-loader.ts
 import PathsConfig from "../../app/config/paths";
+import EnvConfig from "../config/env-config";
 import clog from "../utils/clog/clog";
 const path = require('path');
 
 class ControllersLoader
 {
-	static async loadControllers(app:any, envConfig: any): Promise<any>
+	static async loadControllers(app:any): Promise<any>
 	{
-		if(envConfig.debug) {
+		if(EnvConfig.config.debug) {
 			clog.blue('BEGIN: ControllersLoader->loadControllers');
 		}
 		//Controllers object to return
@@ -26,7 +27,7 @@ class ControllersLoader
 				controllers[key] = new controllerClass(app);
 			}
 		});
-		if(envConfig.debug) {
+		if(EnvConfig.config.debug) {
 			clog.yellow(controllers);
 		}
 		return controllers;

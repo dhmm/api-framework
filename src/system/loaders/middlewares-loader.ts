@@ -1,11 +1,12 @@
 import PathsConfig from "../../app/config/paths";
+import EnvConfig from "../config/env-config";
 import clog from "../utils/clog/clog";
 const path = require('path');
 
 class MiddlewaresLoader
 {
-	static async loadMiddlewares(envConfig: any): Promise<any> {
-		if(envConfig.debug) {
+	static async loadMiddlewares(): Promise<any> {
+		if(EnvConfig.config.debug) {
 			clog.blue('BEGIN: MiddlewaresLoader->loadMiddlewares');
 		}
 		//Middlewares object to return

@@ -1,4 +1,5 @@
 //File : system/framework/framework.ts
+import PathsConfig from "../../app/config/paths";
 import EnvConfig from "../config/env-config";
 import SystemConstants from "../constants/system";
 import ConfigLoader from "../loaders/config-loader";
@@ -17,8 +18,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 class Framework
 {
-	pathsConfig: any = null;
-  envConfig: any = null;
 	controllers: Object = {};	
 	middlewares: Object = {};
 	server = new Server();	
@@ -26,26 +25,24 @@ class Framework
 	async start() {		
 		clog.magenta('Starting framework version : '+ SystemConstants.SystemVersion);
     
-		//Load paths configurations		
-		this.pathsConfig = ConfigLoader.loadPathsConfig();
-		clog.yellow(this.pathsConfig);
+		//Log Paths config values
+		PathsConfig.LogPaths();
 
 		//Load Environment configuration
-		await EnvConfig.loadEnvConfig();
-		this.envConfig = EnvConfig.config;
-		clog.yellow(this.envConfig);		
+		await EnvConfig.loadEnvConfig();		
+		clog.yellow(EnvConfig.config);		
 
 		//Load Controllers
-		this.controllers = await ControllersLoader.loadControllers(app, this.envConfig);
+		this.controllers = await ControllersLoader.loadControllers(app);
 
 		//Load middleware
-		this.middlewares = await MiddlewaresLoader.loadMiddlewares(this.envConfig);		
+		this.middlewares = await MiddlewaresLoader.loadMiddlewares();		
 
 		//Load routes
-		await RoutesLoader.loadRoutes(app, this.controllers, this.middlewares, this.envConfig)				
+		await RoutesLoader.loadRoutes(app, this.controllers, this.middlewares)				
 		
 		//Start server
-		this.server.start(app, this.envConfig);
+		this.server.start(app);
 	}
 }
 
