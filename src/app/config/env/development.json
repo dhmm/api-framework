@@ -1,5 +1,6 @@
 {
 	"environment": "development",
 	"port" : "8080",
-	"debug" : true
+	"debug" : true,
+	"apiKey" : "111-111-111"
 }

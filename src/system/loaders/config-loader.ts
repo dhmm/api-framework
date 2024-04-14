@@ -9,7 +9,7 @@ class ConfigLoader
 	{       
 		clog.blue('BEGIN : ConfigLoader->loadPathsConfig') ;
 		let pathsConfig = {
-            rootDir : PathsConfig.RootDir,
+      rootDir : PathsConfig.RootDir,
 			appDir :  PathsConfig.AppDir,
 			configDir :  PathsConfig.ConfigDir,
 			envConfigDir :  PathsConfig.EnvConfigDir,
@@ -17,14 +17,14 @@ class ConfigLoader
 		}		
 		return pathsConfig;
 	}
-    static async loadEnvConfig(pathsConfig : any ) : Promise<any>
+    static async loadEnvConfig() : Promise<any>
     {       
 				clog.blue('BEGIN : ConfigLoader->loadEnvConfig') ; 
         let environment = process.env.ENVIRONMENT;
         if(!environment) {
             environment = "development";
         }       
-        const filePath = pathsConfig.envConfigDir+'/'+environment+'.json';
+        const filePath = PathsConfig.EnvConfigDir+'/'+environment+'.json';
         const fs = require('fs');
         const config = await fs.readFileSync(filePath, 'utf-8' , (err:any, data:any) => {
             if(err) {

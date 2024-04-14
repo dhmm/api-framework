@@ -1,5 +1,6 @@
 //File : system/core/controller.ts
 import Request from "../http/Request";
+import { ForbiddenResponse } from "../http/responses/Responses";
 
 class Controller {
 	#app: any;
@@ -10,12 +11,17 @@ class Controller {
 
 	constructor(app: any) {
 		this.#app = app;
-		this.#app.use((req: any, res: any, next: any) => {
+		this.#app.use((req: any, res: any, next: any) => {			
 			this.#req = req;
 			this.#res = res;
 			this.#route = req.baseUrl + req.path;
 			this.#method = req.method.toLowerCase();
-			next();
+			let apiKey = this.getHeaderParam('api-key');
+			if(apiKey != undefined && apiKey != null && apiKey == '111-111-111') {
+				next();
+			} else {
+				return new ForbiddenResponse(this.#res,null,"Invalid API key",null);
+			}
 		});
 	}
 	getRequest(req: any) {

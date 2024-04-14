@@ -1,4 +1,5 @@
 //File : system/framework/framework.ts
+import EnvConfig from "../config/env-config";
 import SystemConstants from "../constants/system";
 import ConfigLoader from "../loaders/config-loader";
 import ControllersLoader from "../loaders/controllers-loader";
@@ -30,15 +31,9 @@ class Framework
 		clog.yellow(this.pathsConfig);
 
 		//Load Environment configuration
-		try {
-			let jsonConfig = await ConfigLoader.loadEnvConfig(this.pathsConfig);
-			this.envConfig = JSON.parse(jsonConfig);  					
-		}
-		catch {
-			this.envConfig = null;
-			clog.red("ERROR : Cannot load application CONFIG file");
-		}
-		clog.yellow(this.envConfig);
+		await EnvConfig.loadEnvConfig();
+		this.envConfig = EnvConfig.config;
+		clog.yellow(this.envConfig);		
 
 		//Load Controllers
 		this.controllers = await ControllersLoader.loadControllers(app, this.envConfig);
